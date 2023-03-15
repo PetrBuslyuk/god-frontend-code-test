@@ -37,7 +37,7 @@ export const CarouselNavigation = ({
 
   if (navigation === CarouselNavigationEnum.DOTS) {
     return (
-      <View direction={'row'} spacing={3} justifyContent={'center'}>
+      <View data-testid={'carousel-navigation-wrapper'} direction={'row'} spacing={3} justifyContent={'center'}>
         {Array.from({ length: itemsAmount }).map((_, index) => (
           <CarouselDot
             key={index}
@@ -51,8 +51,9 @@ export const CarouselNavigation = ({
   }
 
   return (
-    <View direction={'row'} spacing={3} justifyContent={'end'} marginRight={5}>
+    <View data-testid={'carousel-navigation-wrapper'} direction={'row'} spacing={3} justifyContent={'end'} marginRight={5}>
       <IconButton
+        data-testid={'carousel-navigation-previous-button'}
         disabled={activeItem === 0 || isPreviousButtonDisabled}
         aria-label={previousButtonLabel}
         iconName="navigation-chevronback"
@@ -60,6 +61,7 @@ export const CarouselNavigation = ({
         onClick={() => changeSlide(activeItem - 1)}
       />
       <IconButton
+        data-testid={'carousel-navigation-next-button'}
         disabled={activeItem === itemsAmount - 1 || isNextButtonDisabled}
         aria-label={nextButtonLabel}
         iconName="navigation-chevronforward"

@@ -1,8 +1,11 @@
 export const ROUTING = {
   HOME: '/',
-  CAR: {
-    INDEX: 'car',
+  LEARN: {
+    INDEX: 'learn',
     DETAILS: ':id'
   },
-  SHOPPING_CART: 'shopping-cart'
+  SHOP: {
+    INDEX: 'shop',
+    DETAILS: ':id'
+  }
 }

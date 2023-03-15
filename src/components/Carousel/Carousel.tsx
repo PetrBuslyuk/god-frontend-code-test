@@ -1,5 +1,6 @@
 import { useTheme, View } from "vcc-ui";
-import React, {Children, TouchEvent, useEffect, useRef, useState} from "react";
+import React, { Children, TouchEvent, useEffect, useRef, useState } from "react";
+import { THEME } from "../../constants/theme.constants";
 import { CarouselNavigation } from "./CarouselNavigation";
 import { useWindowResize } from "../../hooks/useWindowResize.hook";
 import { TCarouselResponsiveOptions } from "../../types/CarouselResponsiveOptions.type";
@@ -10,7 +11,10 @@ interface IProps {
   previousButtonLabel: string;
   nextButtonLabel: string;
   responsive?: TCarouselResponsiveOptions,
+  onceEmpty?: JSX.Element,
 }
+
+const DIRECTION_DIFFERENCE_PX = 10;
 
 /**
  * Carousel component
@@ -19,33 +23,42 @@ interface IProps {
  * @param responsive - responsive options
  * @param previousButtonLabel - previous label for screen readers
  * @param nextButtonLabel - next button label for screen readers
+ * @param onceEmpty - component, which should be displayed, once list is empty
  */
 export const Carousel = ({ items = [],
-  responsive = DEFAULT_CAROUSEL_RESPONSIVE_OPTIONS, previousButtonLabel, nextButtonLabel }: IProps) => {
+  responsive = DEFAULT_CAROUSEL_RESPONSIVE_OPTIONS,
+  previousButtonLabel,
+  nextButtonLabel,
+  onceEmpty = <></>
+}: IProps) => {
+  const theme = useTheme();
+  const windowSize = useWindowResize();
   const [slideItem, setSlideItem] = useState<number>(0);
   const [touchPosition, setTouchPosition] = useState<number | null>(null);
-  const [transforms, setTransforms] = useState<any>({});
+  const [transforms, setTransforms] = useState<{ transform?: string }>({});
   const [isPreviousButtonDisabled, setIsPreviousButtonDisabled] = useState<boolean>(true);
   const [isNextButtonDisabled, setIsNextButtonDisabled] = useState<boolean>(false);
 
-  const windowSize = useWindowResize();
-
   const carouselRef = useRef<HTMLDivElement>(null);
-  const theme = useTheme();
 
   const changeSlide = (slideNumber: number) => {
+    if (!items.length) {
+      return;
+    }
+
     // Reset navigation buttons state
     setIsNextButtonDisabled(false);
     setIsPreviousButtonDisabled(false);
 
     const carouselRect = carouselRef?.current?.getBoundingClientRect();
+
     // As we know, that at least one element should be present, and it's width are equal
     // to all items in carousel list, we can retrieve it calculated width
     const child = carouselRef?.current?.children[0]?.getBoundingClientRect();
 
     // Spacing size from theme is 8 pxs.
     // It multiplies with provided in props spacing between items in carousel
-    const spacingPx = 8 * responsive[windowSize?.themeBreakpoint]!.spacing;
+    const spacingPx = THEME.spacingPx * responsive[windowSize?.themeBreakpoint]!.spacing;
 
     // How many spacings between already slided elements
     const spacingsTotal = spacingPx * slideNumber;
@@ -56,7 +69,7 @@ export const Carousel = ({ items = [],
     // If offset more than total offset - let's better set total maximum offset
     const transShift = totalShift >= totalMaxShift ? totalMaxShift : totalShift;
 
-    // Disable navigation buttons once shift is out of box dimension
+    // Disable navigation buttons once shift is out of carousel box dimension
     if (transShift <= 0) {
       setIsPreviousButtonDisabled(true);
     }
@@ -69,6 +82,8 @@ export const Carousel = ({ items = [],
     const trans = {
       transform: `translate3d(-${transShift}px, 0, 0)`,
     };
+
+    // console.log(trans);
 
     setTransforms(trans);
     setSlideItem(slideNumber);
@@ -84,6 +99,20 @@ export const Carousel = ({ items = [],
     changeSlide(0);
   }, [items]);
 
+  const isRightDirection = (event: TouchEvent) => {
+    const currentPosition = event.touches[0].clientX;
+    const direction = touchPosition! - currentPosition;
+
+    return direction > DIRECTION_DIFFERENCE_PX;
+  }
+
+  const isLeftDirection = (event: TouchEvent) => {
+    const currentPosition = event.touches[0].clientX;
+    const direction = touchPosition! - currentPosition;
+
+    return direction < -DIRECTION_DIFFERENCE_PX;
+  }
+
   const handleTouchStart = (event: TouchEvent) => {
     const touchDown = event.touches[0].clientX;
     setTouchPosition(touchDown);
@@ -94,19 +123,19 @@ export const Carousel = ({ items = [],
       return;
     }
 
-    const currentPosition = event.touches[0].clientX;
-    const direction = touchPosition - currentPosition;
-
-    // If direction is more than 10px - then we can decide that user swipes to the right
-    if (direction > 10 && slideItem + 1 < items.length ) {
+    // If swipes to the right and next item is not out of the range
+    // Then set next item as active
+    if (isRightDirection(event) && slideItem + 1 < items.length ) {
       changeSlide(slideItem + 1);
     }
 
-    // Otherwise user swipes to the left
-    if (direction < -10 && slideItem - 1 >= 0) {
+    // Otherwise if user swipes to the left, and we have previous item
+    // Then set previous items as active
+    if (isLeftDirection(event) && slideItem - 1 >= 0) {
       changeSlide(slideItem - 1);
     }
 
+    // Clear touch position
     setTouchPosition(null);
   }
 
@@ -114,9 +143,14 @@ export const Carousel = ({ items = [],
     changeSlide(index);
   }
 
+  if (!items.length) {
+    return onceEmpty;
+  }
+
   return (
-    <View>
+    <View data-testid={'carousel-wrapper'}>
       <View
+        data-testid={'carousel-list'}
         ref={carouselRef}
         spacing={responsive[windowSize!.themeBreakpoint]!.spacing}
         onTouchStart={handleTouchStart}
@@ -128,7 +162,7 @@ export const Carousel = ({ items = [],
         extend={{ ...transforms, transition: '1s transform ease-out' }}
       >
         { Children.map(items, (item, index) => (
-          <div onFocus={() => onFocus(index)}>
+          <div data-testid={`carousel-list-item-${index}`} onFocus={() => onFocus(index)}>
             {item}
           </div>
         ))}

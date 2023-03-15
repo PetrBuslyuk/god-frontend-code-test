@@ -1,0 +1,12 @@
+{
+  "globals": {
+    "ts-jest": {
+      "tsConfig": "./tsconfig.spec.json"
+    }
+  },
+  "preset": "ts-jest",
+  "testEnvironment": "jsdom",
+  "roots": ["<rootDir>/src"],
+  "moduleDirectories": ["node_modules", "src"],
+  "testTimeout": 500000
+}

@@ -18,6 +18,7 @@ interface IProps {
  */
 export const CarouselDot = ({ isActive, onClick, index, theme }: IProps) => {
   return <Block
+    data-testid={`carousel-navigation-dot-${index}`}
     extend={{
       borderRadius: '100%',
       transition: '1s background-color ease-out',

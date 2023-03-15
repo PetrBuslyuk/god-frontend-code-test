@@ -23,11 +23,12 @@ export const CarSearchBar = ({ searchCars }: IProps) => {
   // Debounce search to avoid multiply re-renders
   useEffect(() => {
     searchCars(debouncingSearch);
-  }, [debouncingSearch])
+  }, [debouncingSearch]);
 
   return (
-    <View marginBottom={5}>
+    <View data-testid={'search-bar-wrapper'} marginBottom={5}>
       <TextInput
+        data-testid={'search-bar-input'}
         label="Search"
         type="text"
         value={search}

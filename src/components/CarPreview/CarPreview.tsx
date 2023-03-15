@@ -1,22 +1,20 @@
 import Image from 'next/image';
 import { useState } from "react";
-import { View, Link } from "vcc-ui";
-import { CurrentTheme } from "vcc-ui/dist/types/shared";
+import {View, Link, useTheme} from "vcc-ui";
 import { ICar } from "../../interfaces/Car.interface";
 import { ROUTING } from "../../constants/routing.constants";
 
 interface IProps {
   car: ICar;
-  theme: CurrentTheme;
 }
 
 /**
  * Single car preview
  *
  * @param car - car entity
- * @param theme - current theme
  */
-export const CarPreview = ({ car, theme }: IProps) => {
+export const CarPreview = ({ car }: IProps) => {
+  const theme = useTheme();
   const [isHovered, setIsHovered] = useState(false);
 
   const onHover = (hovered: boolean): void => {
@@ -25,6 +23,7 @@ export const CarPreview = ({ car, theme }: IProps) => {
 
   return (
     <View
+      data-testid={`car-preview-${car.id}`}
       onMouseEnter={() => onHover(true)}
       onMouseLeave={() => onHover(false)}
       extend={{
@@ -39,7 +38,7 @@ export const CarPreview = ({ car, theme }: IProps) => {
         },
       }}>
       <View>
-        <Link href={`/${ROUTING.CAR.INDEX}/${car.id}`}>
+        <Link href={`/${ROUTING.LEARN.INDEX}/${car.id}`}>
           <span style={{
             color: isHovered ? theme.color.foreground.action : theme.color.foreground.secondary,
             marginBottom: 2,
@@ -87,8 +86,8 @@ export const CarPreview = ({ car, theme }: IProps) => {
       </View>
 
       <View justifyContent={'center'} direction={'row'} spacing={2}>
-        <Link href={`/${ROUTING.CAR.INDEX}/${car.id}`} arrow={'right'}>{'LEARN'}</Link>
-        <Link href={`/${ROUTING.SHOPPING_CART}/${car.id}`} arrow={'right'}>{'SHOP'}</Link>
+        <Link href={`/${ROUTING.LEARN.INDEX}/${car.id}`} arrow={'right'}>{'LEARN'}</Link>
+        <Link href={`/${ROUTING.SHOP.INDEX}/${car.id}`} arrow={'right'}>{'SHOP'}</Link>
       </View>
     </View>
   );
