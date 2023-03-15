@@ -11,8 +11,8 @@ In scope of this technical task has been made following:
     We can swipe list on small window dimensions and navigate through buttons, such as arrows and dots.
     I've tried to make it responsive, based on current theme.
     It can be easy suitable for future configuring and extending.
-+ Search functionality based on: car body type + model name + model type.
-+ Implemented responsiveness of layout and components
++ Search functionality based on: car `bodyType` field only (as written in documentation).
++ Implemented responsiveness of layout and components.
 + Added accessibility features.
 + Styles has been taken from VCC-UI library (at least possible, which we can take).
 + Configured testing environment and partially covered main features with tests.

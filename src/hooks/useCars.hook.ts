@@ -32,11 +32,9 @@ export const useCars = () => {
     }
     const searchLc = search.toLowerCase();
 
-    // Search by one of the properties
+    // Search by `bodyType` property only (as written in documentation)
     const filtered: ICar[] = carsState!.filter((car: ICar) => {
-      return car.bodyType.toLowerCase().includes(searchLc)
-      || car.modelName.toLowerCase().includes(searchLc)
-      || car.modelType.toLowerCase().includes(searchLc);
+      return car.bodyType.toLowerCase().includes(searchLc);
     });
 
     setCarsFilteredState(filtered);
