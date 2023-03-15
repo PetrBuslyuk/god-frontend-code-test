@@ -1,5 +1,5 @@
-import { TCarouselResponsiveOptions } from "../types/CarouselItemBreakpoints.type";
 import { CarouselNavigationEnum } from "../enums/CarouselNavigation.enum";
+import { TCarouselResponsiveOptions } from "../types/CarouselResponsiveOptions.type";
 
 export const DEFAULT_CAROUSEL_RESPONSIVE_OPTIONS: TCarouselResponsiveOptions = {
   untilM: {

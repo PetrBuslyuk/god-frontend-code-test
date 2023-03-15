@@ -1,8 +1,8 @@
 import { useTheme, View } from "vcc-ui";
-import React, { TouchEvent, useEffect, useRef, useState } from "react";
+import React, {Children, TouchEvent, useEffect, useRef, useState} from "react";
 import { CarouselNavigation } from "./CarouselNavigation";
 import { useWindowResize } from "../../hooks/useWindowResize.hook";
-import { TCarouselResponsiveOptions } from "../../types/CarouselItemBreakpoints.type";
+import { TCarouselResponsiveOptions } from "../../types/CarouselResponsiveOptions.type";
 import { DEFAULT_CAROUSEL_RESPONSIVE_OPTIONS } from "../../constants/defaultCarouselItemBreakpoints.constants";
 
 interface IProps {
@@ -110,6 +110,10 @@ export const Carousel = ({ items = [],
     setTouchPosition(null);
   }
 
+  const onFocus = (index: number) => {
+    changeSlide(index);
+  }
+
   return (
     <View>
       <View
@@ -123,7 +127,11 @@ export const Carousel = ({ items = [],
         maxWidth={'100%'}
         extend={{ ...transforms, transition: '1s transform ease-out' }}
       >
-        {items}
+        { Children.map(items, (item, index) => (
+          <div onFocus={() => onFocus(index)}>
+            {item}
+          </div>
+        ))}
       </View>
       <CarouselNavigation
         navigation={responsive[windowSize!.themeBreakpoint]!.navigation}

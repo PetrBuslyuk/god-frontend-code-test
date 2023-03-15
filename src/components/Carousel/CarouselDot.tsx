@@ -8,6 +8,14 @@ interface IProps {
   index: number;
 }
 
+/**
+ * One of navigation shape. Commonly used as navigation button in small screens
+ *
+ * @param isActive - highlight dot when item is active
+ * @param onClick - callback when bot item was clicked
+ * @param index - current index of dot element
+ * @param theme - current theme
+ */
 export const CarouselDot = ({ isActive, onClick, index, theme }: IProps) => {
   return <Block
     extend={{

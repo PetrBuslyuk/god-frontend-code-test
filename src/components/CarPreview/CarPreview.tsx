@@ -24,17 +24,20 @@ export const CarPreview = ({ car, theme }: IProps) => {
   }
 
   return (
-    <View onMouseEnter={() => onHover(true)} onMouseLeave={() => onHover(false)} extend={{
-      onlyS: {
-        width: '70vw'
-      },
-      onlyM: {
-        width: '45vw',
-      },
-      fromL: {
-        width: '16vw',
-      },
-    }}>
+    <View
+      onMouseEnter={() => onHover(true)}
+      onMouseLeave={() => onHover(false)}
+      extend={{
+        onlyS: {
+          width: '70vw'
+        },
+        onlyM: {
+          width: '45vw',
+        },
+        fromL: {
+          width: '16vw',
+        },
+      }}>
       <View>
         <Link href={`/${ROUTING.CAR.INDEX}/${car.id}`}>
           <span style={{

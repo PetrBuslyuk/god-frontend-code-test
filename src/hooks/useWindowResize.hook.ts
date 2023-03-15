@@ -1,7 +1,7 @@
-import {useEffect, useState} from "react";
-import {ThemeBreakpointName} from "vcc-ui/dist/types/shared";
-import {useDebounce} from "./useDebounce.hook";
-import {ThemeService} from "../services/theme.service";
+import { useEffect, useState } from "react";
+import { ThemeBreakpointName } from "vcc-ui/dist/types/shared";
+import { useDebounce } from "./useDebounce.hook";
+import { ThemeService } from "../services/theme.service";
 
 /**
  * Hook to watch if window resized
