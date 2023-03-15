@@ -83,8 +83,6 @@ export const Carousel = ({ items = [],
       transform: `translate3d(-${transShift}px, 0, 0)`,
     };
 
-    // console.log(trans);
-
     setTransforms(trans);
     setSlideItem(slideNumber);
   };

@@ -1,4 +1,4 @@
-import {ICar} from "../interfaces/Car.interface";
+import { ICar } from "../interfaces/Car.interface";
 
 export class CarsApi {
   private static baseUrl: string = 'http://localhost:3000/api/cars.json';

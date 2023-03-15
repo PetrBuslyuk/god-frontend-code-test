@@ -1,4 +1,4 @@
-import {Logo, View} from "vcc-ui";
+import { Logo, View } from "vcc-ui";
 
 /**
  * Header component

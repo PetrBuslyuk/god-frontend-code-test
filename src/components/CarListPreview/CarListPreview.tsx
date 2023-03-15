@@ -1,8 +1,8 @@
 import React from "react";
-import { ICar } from "../../interfaces/Car.interface";
+import { Carousel } from "../Carousel/Carousel";
 import { CarPreview } from "../CarPreview/CarPreview";
 import { CarListPreviewEmpty } from "./CarListPreviewEmpty";
-import { Carousel } from "../Carousel/Carousel";
+import { ICar } from "../../interfaces/Car.interface";
 
 interface IProps {
     cars: ICar[];

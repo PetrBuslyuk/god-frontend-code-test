@@ -2,12 +2,12 @@ import React from "react";
 import { StyleProvider, ThemePicker } from "vcc-ui";
 import { act, cleanup, fireEvent, render as jestRenderer } from '@testing-library/react';
 import { Carousel } from "./Carousel";
-import { ICar } from "../../interfaces/Car.interface";
 import { CarPreview } from "../CarPreview/CarPreview";
+import { CarListPreviewEmpty } from "../CarListPreview/CarListPreviewEmpty";
+import { ICar } from "../../interfaces/Car.interface";
 import { CarouselNavigationEnum } from "../../enums/CarouselNavigation.enum";
 import { carouselDefaultOptionsMock } from "../../__mocks__/carousel-default-options.mock";
 import { carsMock10Items, carsMock1Item, carsMock4Items, carsMockDefault } from "../../__mocks__/cars.mock";
-import { CarListPreviewEmpty } from "../CarListPreview/CarListPreviewEmpty";
 
 afterEach(cleanup);
 
