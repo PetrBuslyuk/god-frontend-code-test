@@ -1,3 +1,31 @@
+# Dev Notes
+
+## For code reviewers
+
+Greetings, for those who viewing my work!
+
+In scope of this technical task has been made following:
++ Layout from provided design.
++ Carousel component.
+  + Note: We can navigate inside via Tab's,
+    We can swipe list on small window dimensions and navigate through buttons, such as arrows and dots.
+    I've tried to make it responsive, based on current theme.
+    It can be easy suitable for future configuring and extending.
++ Search functionality based on: car body type + model name + model type.
++ Implemented responsiveness of layout and components
++ Added accessibility features.
++ Styles has been taken from VCC-UI library (at least possible, which we can take).
++ Configured testing environment and partially covered main features with tests.
++ Covered code with comments and annotations to main components
+
+P.S.: First thought was to take already existing solution with some existing Carousel library,
+but as I understood further the goal of this task was implementing self-written solution.
+Definitely, already existing solution can save time and money for customer, anyway it can be updated at any time in future.
+P.P.S.: Anyway I enjoyed by writing it, I hope you can you enjoy too.
+
+God bless you, stay safe and I wish you good luck.
+Peter.
+
 # Volvo Cars (Global Online Digital)
 
 ## Front-end coding test (React)
